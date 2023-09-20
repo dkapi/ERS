@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Egyptian Rat Slap"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.HomeScreen"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="33">
+        <activity
+            android:name="com.ersfrontend.activities.FriendsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.WaitingActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.LeaderboardActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.ersfrontend.activities.GameActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.CustomActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.JoinActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.ersfrontend.activities.PlayActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.ersfrontend.activities.MenuActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.ersfrontend.activities.StatsActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.ersfrontend.activities.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

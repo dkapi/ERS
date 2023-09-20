@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">HomeScreen</string>
+    <string name="join_screen_edittext">Search games</string>
+    <string name="join_screen_scrollview">Games matching search entry</string>
+    <string name="home_screen_imagebutton">HomePageButton</string>
+    <string name="menu_screen_settingsbutton">Settings</string>
+    <string name="menu_screen_statisticsbutton">Statistics</string>
+    <string name="menu_screen_leaderboardbutton">Leaderboard</string>
+    <string name="menu_screen_textview">You are on the menu</string>
+    <string name="menu_screen_playbutton">Play</string>
+    <string name="play_screen_quickplaybutton">Quickplay</string>
+    <string name="play_screen_getgamebutton">Get games</string>
+    <string name="play_screen_edittext">Enter game name</string>
+    <string name="play_screen_menubutton">Menu</string>
+    <string name="play_screen_custombutton">Custom</string>
+    <string name="play_screen_joinbutton">Join</string>
+    <string name="title_activity_leader_board">LeaderBoardActivity</string>
+    <string name="player_right">Player Right Pile</string>
+    <string name="player_left">Player Left Pile</string>
+    <string name="player_top">Player Top Pile</string>
+    <string name="player_bottom">Player Bottom Pile</string>
+    <string name="back_center">Center Pile Back</string>
+    <string name="middle_center">Center Pile Middle</string>
+    <string name="front_center">Center Pile Front</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    >>>>>>> 050bc73b24f430f5617300e613ac85203cd643ac
+</resources>

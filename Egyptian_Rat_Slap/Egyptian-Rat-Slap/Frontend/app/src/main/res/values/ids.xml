@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="Play_Button_PlayScreen" type="id" />
+    <item name="Login_Button" type="id"/>
+    <item name="SignUp_Button" type="id" />
+    <item name="register_btn" type="id" />
+</resources>

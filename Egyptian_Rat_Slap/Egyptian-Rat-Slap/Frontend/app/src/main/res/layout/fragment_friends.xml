@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ersfrontend.Fragments.FriendsFragment">
+
+    <ScrollView
+        android:id="@+id/Friends_List"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        android:scrollbarStyle="insideInset"
+        android:contentDescription="Friends">
+
+        <LinearLayout
+            android:id="@+id/Friends_List_Layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/exit_button_friends_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="650dp"
+        android:layout_marginLeft="50dp"
+        android:text="Exit" />
+
+    <Button
+        android:id="@+id/add_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="650dp"
+        android:layout_marginLeft="225dp"
+        android:text="Add Friends" />
+
+</FrameLayout>

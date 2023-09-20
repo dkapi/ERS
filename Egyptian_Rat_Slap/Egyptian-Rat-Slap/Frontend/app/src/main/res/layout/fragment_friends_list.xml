@@ -1,0 +1,49 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ersfrontend.Fragments.FriendsListFragment">
+
+
+    <EditText
+        android:id="@+id/editText_Add_Friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Type player name"
+        android:layout_marginTop="575dp"
+        android:layout_marginLeft="100dp"/>
+
+    <Button
+        android:id="@+id/searchButton_Add_Friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="640dp"
+        android:text="Search" />
+
+    <Button
+        android:id="@+id/exitButton_Add_Friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Return"/>
+
+    <ScrollView
+        android:id="@+id/scrollView_Add_Friends"
+        android:layout_width="match_parent"
+        android:layout_height="485dp"
+        android:layout_marginTop="80dp"
+        android:contentDescription="Found players"
+        android:scrollbarStyle="insideInset">
+
+        <LinearLayout
+            android:id="@+id/linearLayout_Add_Friends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+</FrameLayout>

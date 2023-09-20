@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Sort</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.spring.ERSBackend.Services</a>
+</div>
+
+<h1>Coverage Summary for Class: Sort (com.spring.ERSBackend.Services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Sort</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.spring.ERSBackend.Services;
+&nbsp;
+&nbsp;import com.spring.ERSBackend.Entities.Player;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+<b class="nc">&nbsp;public class Sort {</b>
+&nbsp;
+&nbsp;    public static ArrayList&lt;Player&gt; SortTopTen(ArrayList&lt;Player&gt; players){
+&nbsp;        //Perform insertion sort on players
+<b class="nc">&nbsp;        int n = players.size();</b>
+<b class="nc">&nbsp;        for (int i = 1; i &lt; n; ++i) {</b>
+<b class="nc">&nbsp;            Player key = players.get(i);</b>
+<b class="nc">&nbsp;            int j = i - 1;</b>
+&nbsp;
+&nbsp;            /* Move elements of arr[0..i-1], that are
+&nbsp;               greater than key, to one position ahead
+&nbsp;               of their current position */
+<b class="nc">&nbsp;            while (j &gt;= 0 &amp;&amp; players.get(j).getGamesWon() &gt; key.getGamesWon()) {</b>
+<b class="nc">&nbsp;                players.set(j + 1, players.get(j));</b>
+<b class="nc">&nbsp;                j = j - 1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            players.set(j + 1, key);</b>
+&nbsp;        }
+&nbsp;        Player[] topTen;
+<b class="nc">&nbsp;        if(players.size() &gt;= 10) { //Checks to see if we have more than 10 players</b>
+<b class="nc">&nbsp;            topTen = new Player[10];</b>
+&nbsp;        }
+&nbsp;        else {
+<b class="nc">&nbsp;            topTen = new Player[players.size()];// If not, just returns the players.</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        for(int i = 0; i &lt; topTen.length; i++){</b>
+<b class="nc">&nbsp;            topTen[i] = players.get(i);</b>
+&nbsp;        }
+&nbsp;        // Define the array
+<b class="nc">&nbsp;        int[] array = {1, 2, 3, 4, 5};</b>
+&nbsp;
+&nbsp;// Define the ArrayList
+<b class="nc">&nbsp;        ArrayList&lt;Player&gt; NewArrayList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;// Copy the contents of the array into the ArrayList using a loop
+<b class="nc">&nbsp;        for (int i = 0; i &lt; array.length; i++) {</b>
+<b class="nc">&nbsp;            NewArrayList.add(topTen[i]);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return NewArrayList;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 15:24</div>
+</div>
+</body>
+</html>

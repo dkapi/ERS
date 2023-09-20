@@ -1,0 +1,252 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GameController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.spring.ERSBackend.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: GameController (com.spring.ERSBackend.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (36/40)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.spring.ERSBackend.controller;
+&nbsp;
+&nbsp;import com.spring.ERSBackend.Entities.Game;
+&nbsp;import com.spring.ERSBackend.Entities.Player;
+&nbsp;import com.spring.ERSBackend.Repository.GameRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/games&quot;)
+<b class="fc">&nbsp;public class GameController {</b>
+&nbsp;
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    GameRepository gameRepository;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param game - param given by frontend to create game with specific variables initilized
+&nbsp;     * @return Response entity
+&nbsp;     * @throws IOException posts game to database with a shuffled deck and empty centerpile and empty player list
+&nbsp;     */
+&nbsp;    @PostMapping
+&nbsp;    public ResponseEntity&lt;Game&gt; createGame(@RequestBody Game game) throws IOException {
+<b class="fc">&nbsp;        List&lt;Integer&gt; cards = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; 52; i++) {</b>
+<b class="fc">&nbsp;            cards.add(i);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Collections.shuffle(cards);</b>
+<b class="fc">&nbsp;        game.setCards(cards);</b>
+<b class="fc">&nbsp;        Game savedGame = gameRepository.save(game);</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(savedGame);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @return Response Entity of arraylist&lt;game&gt; with all games
+&nbsp;     */
+&nbsp;    @GetMapping
+&nbsp;    public ResponseEntity&lt;ArrayList&lt;Game&gt;&gt; GetAllGames() {
+<b class="fc">&nbsp;        ArrayList&lt;Game&gt; allGames = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        gameRepository.findAll().forEach(allGames::add);</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(allGames);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param gameId - of game to be found by id
+&nbsp;     * @return Response entity of a singular game found by its ID
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/{game_id}&quot;)
+&nbsp;    public ResponseEntity&lt;Game&gt; getGameById(@PathVariable(&quot;game_id&quot;) int gameId) {
+&nbsp;
+<b class="fc">&nbsp;        Optional&lt;Game&gt; updateGame = gameRepository.findById(gameId);</b>
+<b class="fc">&nbsp;        if (updateGame.isEmpty()) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.unprocessableEntity().build();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Game game = gameRepository.findById(gameId).get();</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(game);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param gameId - of game to be found by id
+&nbsp;     * @return Response entity of set&lt;player&gt; that holds all players in the chosen game found by its ID
+&nbsp;     */
+&nbsp;    @GetMapping(&quot;/{game_id}/players&quot;)
+&nbsp;    public ResponseEntity&lt;Set&lt;Player&gt;&gt; getAllPlayers(@PathVariable(&quot;game_id&quot;) int gameId) {
+<b class="fc">&nbsp;        Optional&lt;Game&gt; updateGame = gameRepository.findById(gameId);</b>
+<b class="fc">&nbsp;        if (updateGame.isEmpty()) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.unprocessableEntity().build();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Game game = gameRepository.findById(gameId).get();</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(game.getPlayers());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;        /*PUT: This updates the game once a crucial part of the game state is changed
+&nbsp;        such as a slap or someone gets the center deck
+&nbsp;        This is the complicated one as there are a few things that need to be updated.
+&nbsp;        Each player&#39;s hand (or queue) needs to be updated.
+&nbsp;        The center pile of the deck needs to be updated.
+&nbsp;        I think this is all that happens on backEnd. I do believe that frontEnd will immediately
+&nbsp;        check to see if any players hand is equal to the whole deck (ie. They won)
+&nbsp;        and they should check for any players hands are equal to zero (ie. They are out.)
+&nbsp;         */
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param gameId       - to be looked up
+&nbsp;     * @param gameToUpdate - is request parameter that front end is requesting to update
+&nbsp;     * @return response entity of type game that is the updated game in database
+&nbsp;     */
+&nbsp;    @PutMapping(&quot;/{game_id}&quot;)
+&nbsp;    public ResponseEntity&lt;Game&gt; updateGame(@PathVariable(&quot;game_id&quot;) int gameId, @RequestBody Game gameToUpdate) {
+<b class="fc">&nbsp;        Optional&lt;Game&gt; updateGame = gameRepository.findById(gameId);</b>
+<b class="fc">&nbsp;        if (updateGame.isEmpty()) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.unprocessableEntity().build();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Game saveGame = gameRepository.save(gameToUpdate);</b>
+<b class="fc">&nbsp;        saveGame.setId(gameId);</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(saveGame);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param gameId id passed in to lookup
+&nbsp;     * @return response entity of type game of game that was deleted, but it is actually empty because deleted.
+&nbsp;     */
+&nbsp;    @DeleteMapping(&quot;/deleteGame/{game_id}&quot;)
+&nbsp;    public ResponseEntity&lt;Game&gt; deleteGameAndRemovePlayerFromGame(@PathVariable(&quot;game_id&quot;) int gameId) {
+<b class="fc">&nbsp;        Optional&lt;Game&gt; gameToDelete = gameRepository.findById(gameId);</b>
+<b class="fc">&nbsp;        if (gameToDelete.isEmpty()) {</b>
+<b class="fc">&nbsp;            return ResponseEntity.unprocessableEntity().build();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        Set&lt;Player&gt; playersInGame = gameToDelete.get().getPlayers();</b>
+<b class="fc">&nbsp;        for (Player player : playersInGame) {</b>
+<b class="nc">&nbsp;            player.setGame(null);</b>
+<b class="nc">&nbsp;            player.setInGame(false);</b>
+<b class="nc">&nbsp;            player.setPlayerHand(null);</b>
+<b class="nc">&nbsp;        }</b>
+<b class="fc">&nbsp;        gameRepository.deleteById(gameId);</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok().build();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * @param game_id - game to be found by its id
+&nbsp;     * @throws IOException - needed incase  nothing to delete
+&nbsp;     */
+&nbsp;    @DeleteMapping(&quot;/{game_id}&quot;)
+&nbsp;    public void deleteGame(@PathVariable(&quot;game_id&quot;) int game_id) throws IOException {
+<b class="fc">&nbsp;        gameRepository.deleteById(game_id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * deletes all existing games
+&nbsp;     *
+&nbsp;     * @throws IOException - needed incase nothing to delete
+&nbsp;     */
+&nbsp;
+&nbsp;    @DeleteMapping(&quot;/everythingGoes&quot;)
+&nbsp;    public void deleteAllGames() throws IOException {
+<b class="fc">&nbsp;        gameRepository.deleteAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-02 09:18</div>
+</div>
+</body>
+</html>

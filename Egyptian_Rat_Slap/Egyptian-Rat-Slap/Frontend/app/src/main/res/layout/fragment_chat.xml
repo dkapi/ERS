@@ -1,0 +1,35 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.ersfrontend.Fragments.ChatFragment">
+
+    <TextView
+        android:id="@+id/chatBox"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:background="#D3D3D3"
+        android:scrollbars="vertical"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/messageBox"
+        android:layout_width="300dp"
+        android:layout_height="58dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="500dp"
+        android:background="#D3D3D3"
+        android:ems="10"
+        android:hint="Message"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="600dp"
+        android:text="Exit" />
+
+</FrameLayout>
